@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>THREE-View Test</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="three.js"></script>
+        <script type="text/javascript" src="three-backend.js"></script>
+        <script>
+            var view = new THREEView(512, 512);
+
+            var cylinder = view.addCylinder(2, 5);
+            var sphere = view.addSphere(5);
+            view.translateObjectByXYZ( sphere, 0, 0, 10 );
+            var box = view.addBox( 2.5, 2.5, 2.5 );
+            var empty = view.addEmpty();
+            view.translateObjectByXYZ( empty, 10, 0, 10 );
+            view.setObjectParentToObject( box, empty );
+
+            document.body.appendChild( view.domElement() );
+            view.draw();
+        </script>
+    </body>
+</html>
