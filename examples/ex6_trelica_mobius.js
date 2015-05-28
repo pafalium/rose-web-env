@@ -76,7 +76,7 @@ var polygon_normal = function ( pts ) {
   return multCoord(
     normCoord(
       cross_products(
-        pts.slice().push(pts[0]))),
+        pts.concat( [pts[0]] ))),
     -1);
 };
 var midCoord = function ( c1, c2 ) {
@@ -166,3 +166,15 @@ var moebius_truss = function ( r, u1, u2, m, v1, v2, n ) {
 
 var moebius_truss_example = moebius_truss( 5, 0, Math.PI*4, 80, 0, 0.3, 5 );
 
+/*
+//
+//Testing quadPyramidApex...
+//
+var basePoints = [xyz(1,0,0), xyz(0,1,0), xyz(-1,0,0),xyz(0,-1,0)];
+var apexPoint = quadPyramidApex.apply(null, basePoints);
+var sphereOnCoord = function ( radius, c ) {
+  return move( sphere( radius ), c.x, c.y, c.z );
+};
+var baseSpheres = basePoints.map(function(pt){return sphereOnCoord(0.25,pt);});
+var apexSphere = sphereOnCoord(0.25, apexPoint);
+*/
