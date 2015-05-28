@@ -67,13 +67,16 @@ function THREEView ( width, height ) {
     All adders return the created object in order to change it's parent, move, turn invisible, ...
     All objects returned by adders are put into the view's scene.
   */
-  this.addCylinder = function ( radius, height ) {
-    var material = this.defaultSolidMaterial();
-    var geometry = new THREE.CylinderGeometry( radius, radius, height, 16, 1 );
-    var mesh = new THREE.Mesh( geometry, material );
-    this.addObjectToScene( mesh );
-    return mesh;
-  };
+  this.addCylinder = function () {
+      var geometry = new THREE.CylinderGeometry( 1/*r*/, 1/*r*/, 1/*h*/, 16, 1 );
+      return function ( radius, height ) {
+      var material = this.defaultSolidMaterial();
+      var mesh = new THREE.Mesh( geometry, material );
+      this.scaleObjectByXYZ( mesh, radius, height, radius );
+      this.addObjectToScene( mesh );
+      return mesh;
+    }
+  }();
 
   this.addConeFrustum = function ( baseRadius, height, topRadius ) {
     var material = this.defaultSolidMaterial();
@@ -83,21 +86,27 @@ function THREEView ( width, height ) {
     return mesh;
   };
 
-  this.addSphere = function ( radius ) {
-    var material = this.defaultSolidMaterial();
-    var geometry = new THREE.SphereGeometry( radius, 32, 24 );
-    var mesh = new THREE.Mesh( geometry, material );
-    this.addObjectToScene( mesh );
-    return mesh;
-  };
+  this.addSphere = function() {
+    var geometry = new THREE.SphereGeometry( 1, 32, 24 ); 
+    return function ( radius ) {
+      var material = this.defaultSolidMaterial();
+      var mesh = new THREE.Mesh( geometry, material );
+      this.scaleObjectByXYZ( mesh, radius, radius, radius );
+      this.addObjectToScene( mesh );
+      return mesh;
+    };
+  }();
 
-  this.addBox = function ( width, height, depth ) {
-    var material = this.defaultSolidMaterial();
-    var geometry = new THREE.BoxGeometry( width, height, depth );
-    var mesh = new THREE.Mesh( geometry, material );
-    this.addObjectToScene( mesh );
-    return mesh;
-  };
+  this.addBox = function() {
+      var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+      return function ( width, height, depth ) {
+        var material = this.defaultSolidMaterial();
+        var mesh = new THREE.Mesh( geometry, material );
+        this.scaleObjectByXYZ( mesh, width, height, depth );
+        this.addObjectToScene( mesh );
+        return mesh;
+      };
+  }();
 
   this.addSweep = function ( shape, path ) {
     var material = this.defaultSolidMaterial();
@@ -164,7 +173,8 @@ function THREEView ( width, height ) {
     Material functions
   ***********
   */
+  var solidMat = new THREE.MeshLambertMaterial();
   this.defaultSolidMaterial = function () {
-    return new THREE.MeshLambertMaterial();
+    return solidMat;
   };
 }
