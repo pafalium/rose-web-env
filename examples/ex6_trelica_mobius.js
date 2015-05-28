@@ -101,7 +101,7 @@ var quadPyramidApex = function ( c1, c2, c3, c4 ) {
 
 var insertPyramicApex2Curves = function ( cs1, cs2 ) {
   var res = [];
-  for(var baseIndex=0; baseIndex < cs1.length - 2; baseIndex += 1) {
+  for(var baseIndex=0; baseIndex < cs1.length - 1; baseIndex += 1) {
     res.push( 
       quadPyramidApex( cs1[baseIndex], cs2[baseIndex], cs2[baseIndex+1], cs1[baseIndex+1] ) );
   }
@@ -113,7 +113,7 @@ var insertPyramicApexCurves = function ( curves ) {
     res.push( curves[i] ); 
     res.push( insertPyramicApex2Curves( curves[i], curves[i+1] ) );
   }
-  res.push( [curves[curves.length-1]] );
+  res.push( curves[curves.length-1] );
   return res;
 };
 var spatialTrussInsertApex = function ( cs ) {
@@ -177,4 +177,17 @@ var sphereOnCoord = function ( radius, c ) {
 };
 var baseSpheres = basePoints.map(function(pt){return sphereOnCoord(0.25,pt);});
 var apexSphere = sphereOnCoord(0.25, apexPoint);
+*/
+/*
+//
+//Testing insertPyramicApexCurves
+//
+var curves = enumerate_m_n(function(x,z){return xyz(x,0,z);}, 0, 4, 5, 0, 10, 11);
+var curvesKnots = curves.map(function(coordSet){return nos_trelica(coordSet, 0.05);});
+var curvesPlusApexes = insertPyramicApexCurves(curves);
+var curvesPApexesKnots = curvesPlusApexes.map(function(coordSet){return nos_trelica(coordSet, 0.05);});
+var pyramidsTruss = trelica( curvesPlusApexes, 0.05, 0.01 );
+
+var apexesFromFirstTwoCurves = insertPyramicApex2Curves(curves[0],curves[1]);
+var firstUsKnots = [curves[0],apexesFromFirstTwoCurves,curves[1]].map(function(coordSet){return nos_trelica(coordSet, 0.05);});
 */
