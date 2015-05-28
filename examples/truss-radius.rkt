@@ -1,5 +1,5 @@
 #lang racket
-(require rosetta)
+(require (planet aml/rosetta))
 
 ;;#lang rosetta-racket-debug
 
