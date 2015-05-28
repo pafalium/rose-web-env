@@ -168,7 +168,9 @@ move( gr1, 10, 0, 10 );</div>
             // Setup evaluation.
             var reEvaluateProgram = function () {
                 var program = getProgramFromEditor(editor);
-                if (isProgramSafe(program)) {
+                //var shouldEvalProgram = isProgramSafe(program);
+                var shouldEvalProgram = true;
+                if (shouldEvalProgram) {
                     view.clearScene();
                     evalProgramOnView(program, view);
                     view.draw();
