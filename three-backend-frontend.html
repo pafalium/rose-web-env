@@ -158,7 +158,17 @@ move( gr1, 10, 0, 10 );</div>
             // Create and show view.
             var view = new THREEView(pagDims.width/2, pagDims.height);
             document.getElementById("canvas-div").appendChild( view.domElement() );
-            view.draw();
+
+            // Setup view refreshing.
+            var sceneChanged = true;
+            var animationHandler = function animationHandler() {
+                if(sceneChanged) {
+                    sceneChanged = false;
+                    view.draw();
+                }
+                window.requestAnimationFrame(animationHandler);
+            };
+            animationHandler();
 
             // Setup editor.
             var editor = ace.edit("editor-div");
@@ -173,7 +183,7 @@ move( gr1, 10, 0, 10 );</div>
                 if (shouldEvalProgram) {
                     view.clearScene();
                     evalProgramOnView(program, view);
-                    view.draw();
+                    sceneChanged = true;
                 }
             };
             reEvaluateProgram();
@@ -188,7 +198,11 @@ move( gr1, 10, 0, 10 );</div>
             // Setup camera manipulation.
             var cameraControl = new THREE.OrbitControls( view.camera, view.domElement() );
             cameraControl.damping = 0.2;
-            cameraControl.addEventListener( 'change', function() { view.draw(); } );
+            cameraControl.addEventListener( 'change', function() { 
+                sceneChanged = true; 
+            } );
+
+
         </script>
     </body>
 </html>
