@@ -59,7 +59,7 @@ move( gr1, 10, 0, 10 );</div>
                 return content;
             }
 
-            function callMethodOnView (method, view) {
+            function callMethodOnView (method, view) {//aka bind function to object
                 return (function () {
                     return method.apply(view, arguments);
                 });
@@ -69,6 +69,7 @@ move( gr1, 10, 0, 10 );</div>
                 var cone_frustum = callMethodOnView(view.addConeFrustum, view);
                 var sphere = callMethodOnView(view.addSphere, view);
                 var box = callMethodOnView(view.addBox, view);
+                var parametric_surface = callMethodOnView(view.addParametricSurface, view);
                 var empty = callMethodOnView(view.addEmpty, view);
                 var group = (function () {
                     var empty = view.addEmpty();
@@ -107,6 +108,7 @@ move( gr1, 10, 0, 10 );</div>
                 var cone_frustum = function () { return "cone_frustum"; };
                 var sphere = function () { return "sphere"; };
                 var box = function () { return "box"; };
+                var parametric_surface = function () { return "parametric_surface"; };
                 var empty = function () { return "empty"; };
                 var group = (function () {
                     var array = [];

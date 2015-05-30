@@ -108,9 +108,17 @@ function THREEView ( width, height ) {
       };
   }();
 
-  this.addSweep = function ( shape, path ) {
+  this.addSweep = function ( shape, path ) {//FIXME: not sure if this is a surface or solid.
     var material = this.defaultSolidMaterial();
     var geometry = new THREE.ExtrudeGeometry( shape, {extrudePath: path} );
+    var mesh = new THREE.Mesh( geometry, material );
+    this.addObjectToScene( mesh );
+    return mesh;
+  };
+
+  this.addParametricSurface = function ( func, uSlices, vSlices ) {
+    var material = this.defaultSurfaceMaterial();
+    var geometry = new THREE.ParametricGeometry( func, uSlices, vSlices );
     var mesh = new THREE.Mesh( geometry, material );
     this.addObjectToScene( mesh );
     return mesh;
@@ -176,5 +184,11 @@ function THREEView ( width, height ) {
   var solidMat = new THREE.MeshLambertMaterial();
   this.defaultSolidMaterial = function () {
     return solidMat;
+  };
+
+  var surfaceMat = new THREE.MeshLambertMaterial();
+  surfaceMat.side = THREE.DoubleSide;
+  this.defaultSurfaceMaterial = function () {
+    return surfaceMat;
   };
 }
