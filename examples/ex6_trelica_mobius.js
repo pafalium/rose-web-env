@@ -164,7 +164,7 @@ var moebius_truss = function ( r, u1, u2, m, v1, v2, n ) {
   return spatialTrussInsertApex( moebius_cs( r, u1, u2, m, v1, v2, n ) );
 };
 
-var moebius_truss_example = moebius_truss( 5, 0, Math.PI*4, 80, 0, 0.3, 5 );
+var moebius_truss_example = moebius_truss( 100, 0, Math.PI*4, 160, 0, 0.3, 10 );
 
 /*
 //
