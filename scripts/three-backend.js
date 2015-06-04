@@ -116,11 +116,13 @@ function THREEView ( width, height ) {
     return mesh;
   };
 
+  this.paramGeoms = [];
   this.addParametricSurface = function ( func, uSlices, vSlices ) {
     var material = this.defaultSurfaceMaterial();
     var geometry = new THREE.ParametricGeometry( func, uSlices, vSlices );
     var mesh = new THREE.Mesh( geometry, material );
     this.addObjectToScene( mesh );
+    this.paramGeoms.push(geometry);
     return mesh;
   };
 
@@ -173,6 +175,10 @@ function THREEView ( width, height ) {
   this.clearScene = function () {
     this.combinedScene.remove( this.scene );
     this.scene = new THREE.Scene();
+    for (var i = this.paramGeoms.length - 1; i >= 0; i--) {
+      this.paramGeoms[i].dispose();
+    };
+    this.paramGeoms = [];
     this.combinedScene.add( this.scene );
   };
 
