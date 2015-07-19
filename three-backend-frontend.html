@@ -45,14 +45,19 @@ var gr1 = group( b1, s2 );
 move( gr1, 10, 0, 10 );</div>
 
 
-
         <!-- Scripting -->
-        <script type="text/javascript" src="scripts/three.js"></script>
-        <script type="text/javascript" src="scripts/three-backend.js"></script>
-        <script type="text/javascript" src="scripts/ace-builds/src-noconflict/ace.js" charset="utf-8"></script>
-        <script type="text/javascript" src="scripts/OrbitControls.js"></script>
-
+    <!-- 
+        <script type="text/javascript" src="scripts/lib/three.js"></script>
+        <script type="text/javascript" src="scripts/TREEView.js"></script>
+        <script type="text/javascript" src="scripts/lib/ace-builds/src-noconflict/ace.js" charset="utf-8"></script>
+        <script type="text/javascript" src="scripts/lib/OrbitControls.js"></script>
+    -->
         <!-- Evaluation -->
+    <!--
         <script type="text/javascript" src="scripts/main.js"></script>
+    -->
     </body>
+
+    <!-- RequireJS entrypoint -->
+    <script data-main="scripts/main" src="scripts/require.js" type="text/javascript"></script>
 </html>

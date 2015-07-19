@@ -1,4 +1,7 @@
 
+
+define(["THREE"], function(THREE) {
+
 /*
 You can share geometry along different Scenes.
 You can't share meshes along different Scenes.
@@ -198,3 +201,7 @@ function THREEView ( width, height ) {
     return surfaceMat;
   };
 }
+
+return THREEView;
+
+});
