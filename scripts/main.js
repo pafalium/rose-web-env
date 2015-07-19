@@ -4,11 +4,12 @@ require.config({
         "THREE": { exports: "THREE"}
     },
     paths: {
-        "THREE": "lib/three"
+        "THREE": "lib/three",
+        "ace": "lib/ace-builds/src"
     }
 });
 
-require(["THREE", "THREEView"], function(THREE, THREEView) {
+require(["THREE", "THREEView", "ace/ace"], function(THREE, THREEView, ace) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -27,4 +28,11 @@ require(["THREE", "THREEView"], function(THREE, THREEView) {
 
     view.addBox(1,2,3);
     requestAnimationFrame(function(){view.draw();});
+
+
+
+    var editor = ace.edit("editor-div");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+
 });
