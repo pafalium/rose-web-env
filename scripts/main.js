@@ -16,7 +16,7 @@ require.config({
     }
 });
 
-require(["app/view", "ace/ace"], function(view, ace) {
+require(["app/page"], function(page) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -26,23 +26,14 @@ require(["app/view", "ace/ace"], function(view, ace) {
             the actual user interface assembly (or do it itself);
     */
 
-    // Testing Require.js with THREE.js
-
-    var myDiv = document.getElementById("canvas-div");
-    myDiv.appendChild(view.view.domElement);
-
-
-    view.view.addBox(1,2,3);
-    view.controls.addEventListener( 'change', function() { 
-        requestAnimationFrame(function(){view.view.draw();});
+    // Testing app/page module.
+    
+    page.view.controls.addEventListener( 'change', function() { 
+        requestAnimationFrame(function(){page.view.draw();});
     } );
 
     
-
-
-
-    var editor = ace.edit("editor-div");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/javascript");
+    page.editor.setTheme("ace/theme/monokai");
+    page.editor.getSession().setMode("ace/mode/javascript");
 
 });
