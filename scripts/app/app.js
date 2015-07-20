@@ -143,7 +143,7 @@ evalButton.addEventListener("click", reEvaluateProgram);
 editor.on("change", reEvaluateProgram);
 
 // Setup camera manipulation.
-var cameraControl = new THREE.OrbitControls( view.camera, view.domElement() );
+var cameraControl = new THREE.OrbitControls( view.camera, view.domElement );
 cameraControl.damping = 0.2;
 cameraControl.addEventListener( 'change', function() { 
     sceneChanged = true; 

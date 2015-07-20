@@ -1,7 +1,9 @@
 
 require.config({
     shim: {
-        "THREE": { exports: "THREE"}
+        "THREE": { 
+            exports: "THREE"
+        }
     },
     paths: {
         "THREE": "lib/three",
@@ -9,7 +11,7 @@ require.config({
     }
 });
 
-require(["THREE", "THREEView", "ace/ace"], function(THREE, THREEView, ace) {
+require(["THREEView", "ace/ace"], function(THREEView, ace) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -23,7 +25,7 @@ require(["THREE", "THREEView", "ace/ace"], function(THREE, THREEView, ace) {
 
     var myDiv = document.getElementById("canvas-div");
     var view = new THREEView(512,512);
-    myDiv.appendChild(view.domElement());
+    myDiv.appendChild(view.domElement);
 
 
     view.addBox(1,2,3);

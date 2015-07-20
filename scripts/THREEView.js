@@ -3,19 +3,19 @@
 define(["THREE"], function(THREE) {
 
 /*
-You can share geometry along different Scenes.
-You can't share meshes along different Scenes.
-You can't share geometry/meshes/scenes along different Renderers (yet).
-*/
-
-
-/*
 ***********
   TODO
 ***********
   Add a function that is called to cleanup memory when the view is no longer needed, i.e. call dispose of all geometries created/owned by the view.
   Change the clearScene function to actually cleanup the scene instead of replacing it.
 */
+
+/*
+You can share geometry along different Scenes.
+You can't share meshes along different Scenes.
+You can't share geometry/meshes/scenes along different Renderers (yet).
+*/
+
 
 function THREEView ( width, height ) {
 
@@ -58,9 +58,11 @@ function THREEView ( width, height ) {
     this.renderer.render( this.combinedScene, this.camera );
   };
 
-  this.domElement = function () {
-    return this.renderer.domElement;
-  };
+  //this.domElement
+  //this.domElement is defined as a getter. It avoids the weird call to get the domElement.
+  Object.defineProperties(this, {
+    "domElement": { get: function() { return this.renderer.domElement;} }
+  });
 
 
   /*
