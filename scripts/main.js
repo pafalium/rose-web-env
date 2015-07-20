@@ -3,15 +3,20 @@ require.config({
     shim: {
         "THREE": { 
             exports: "THREE"
+        },
+        "OrbitControls": {
+            deps: ["THREE"],
+            exports: "THREE.OrbitControls"
         }
     },
     paths: {
         "THREE": "lib/three",
-        "ace": "lib/ace-builds/src"
+        "ace": "lib/ace-builds/src",
+        "OrbitControls": "lib/OrbitControls"
     }
 });
 
-require(["THREEView", "ace/ace"], function(THREEView, ace) {
+require(["app/view", "ace/ace"], function(view, ace) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -24,12 +29,15 @@ require(["THREEView", "ace/ace"], function(THREEView, ace) {
     // Testing Require.js with THREE.js
 
     var myDiv = document.getElementById("canvas-div");
-    var view = new THREEView(512,512);
-    myDiv.appendChild(view.domElement);
+    myDiv.appendChild(view.view.domElement);
 
 
-    view.addBox(1,2,3);
-    requestAnimationFrame(function(){view.draw();});
+    view.view.addBox(1,2,3);
+    view.controls.addEventListener( 'change', function() { 
+        requestAnimationFrame(function(){view.view.draw();});
+    } );
+
+    
 
 
 
