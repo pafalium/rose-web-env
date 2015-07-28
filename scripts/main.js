@@ -10,13 +10,14 @@ require.config({
         }
     },
     paths: {
+        "Promise": "lib/rsvp-latest",
         "THREE": "lib/three",
         "ace": "lib/ace-builds/src",
         "OrbitControls": "lib/OrbitControls"
     }
 });
 
-require(["app/page"], function(page) {
+require(["app/page","app/promise-worker"], function(page, PromiseWorker) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -35,5 +36,15 @@ require(["app/page"], function(page) {
     
     page.editor.setTheme("ace/theme/monokai");
     page.editor.getSession().setMode("ace/mode/javascript");
+
+
+    // Testing web worker
+    var expression = "2 * 4";
+
+    var mycuteworker = new PromiseWorker();
+    var cutepromise = mycuteworker.evaluate(expression);
+    cutepromise.then(function(val) {
+        alert("worker result: "+val);
+    });
 
 });
