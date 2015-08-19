@@ -28,10 +28,6 @@ require(["app/page","app/promise-worker"], function(page, PromiseWorker) {
     */
 
     // Testing app/page module.
-    
-    page.view.controls.addEventListener( 'change', function() { 
-        requestAnimationFrame(function(){page.view.draw();});
-    } );
 
     
     page.editor.setTheme("ace/theme/monokai");

@@ -64,6 +64,11 @@ function THREEView ( width, height ) {
     "domElement": { get: function() { return this.renderer.domElement;} }
   });
 
+  this.resize = function(width, height) {
+    this.renderer.setSize(width, height);
+    this.camera.aspect = width/height;
+    this.camera.updateProjectionMatrix();
+  }
 
   /*
   ***********
