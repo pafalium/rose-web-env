@@ -2,6 +2,17 @@
 
 define(["Promise"], function(Promise){
 
+	/*
+	// Testing web worker
+    var expression = "2 * 4";
+
+    var mycuteworker = new PromiseWorker();
+    var cutepromise = mycuteworker.evaluate(expression);
+    cutepromise.then(function(val) {
+        alert("worker result: "+val);
+    });
+	*/
+
 	function PromiseWorker() {
 
 		//FIXME This will soon become unwieldy. Find a better way to do it.

@@ -17,7 +17,7 @@ require.config({
     }
 });
 
-require(["app/page","app/promise-worker"], function(page, PromiseWorker) {
+require(["app/page", "app/eval-js-to-three"], function(page, evaluator) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -27,20 +27,6 @@ require(["app/page","app/promise-worker"], function(page, PromiseWorker) {
             the actual user interface assembly (or do it itself);
     */
 
-    // Testing app/page module.
 
-    
-    page.editor.setTheme("ace/theme/monokai");
-    page.editor.getSession().setMode("ace/mode/javascript");
-
-
-    // Testing web worker
-    var expression = "2 * 4";
-
-    var mycuteworker = new PromiseWorker();
-    var cutepromise = mycuteworker.evaluate(expression);
-    cutepromise.then(function(val) {
-        alert("worker result: "+val);
-    });
 
 });
