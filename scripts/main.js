@@ -27,6 +27,8 @@ require(["app/page", "app/eval-js-to-three"], function(page, evaluator) {
             the actual user interface assembly (or do it itself);
     */
 
-
+    var program = page.editor.getValue();
+    var resultScene = evaluator.executeProgram(program);
+    page.view.showScene(resultScene);
 
 });
