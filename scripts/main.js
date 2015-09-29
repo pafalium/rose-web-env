@@ -17,7 +17,7 @@ require.config({
     }
 });
 
-require(["app/page", "app/eval-js-to-three"], function(page, evaluator) {
+require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -31,11 +31,15 @@ require(["app/page", "app/eval-js-to-three"], function(page, evaluator) {
     //var resultScene = evaluator.executeProgram(program);
     //page.view.showScene(resultScene);
 
-    var cube_geom = new THREE.BoxGeometry(1,1,1);
-    var mat = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    var cube = new THREE.Mesh(cube_geom, mat);
-    var scene = new THREE.Scene();
-    scene.add(cube);
+    //var cube_geom = new THREE.BoxGeometry(1,1,1);
+    //var mat = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    //var cube = new THREE.Mesh(cube_geom, mat);
+    //var scene = new THREE.Scene();
+    //scene.add(cube);
+    //page.view.setScene(scene);
+    var program = page.editor.getValue();
+    var evaluator = new Evaluator();
+    var scene = evaluator.evaluate(program);
     page.view.setScene(scene);
 
 });
