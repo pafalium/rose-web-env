@@ -187,7 +187,7 @@ define(["THREE"], function(THREE) {
 			surface: function (path, profile) { // surface.bySweep
 
 			},
-			solid: function (path, surface) { // surface.bySweep
+			solid: function (path, surface) { // solid.bySweep
 
 			}
 		},
