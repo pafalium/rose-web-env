@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>THREE-View Test</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="scripts/three.js"></script>
+        <script type="text/javascript" src="scripts/three-backend.js"></script>
+
+        <script>
+            var viewApplicator = (function() {
+
+                var processResults = function(progRes, view) {
+                    var primitives = {};//letrec
+                    primitives = {
+                        cylinder: function(radius, height) {
+                            return view.addCylinder(radius, height);
+                        },
+                        sphere: function(radius){
+                            return view.addSphere(radius);
+                        },
+                        empty: function(){
+                            return view.addEmpty();
+                        },
+                        group: function () {
+                            var toEval = [].slice.call(arguments);
+                            var objs = toEval.map(function(elem){
+                                return primitives[elem[0]].apply(null, elem.slice(1));
+                            });
+
+                            var empty = view.addEmpty();
+                            for (var i=0; i<objs.length; i++) {
+                                view.setObjectParentToObject(objs[i], empty);
+                            }
+                            return empty;
+                        },
+                        move: function(obj, x, y, z) {
+                            var viewObj = primitives[obj[0]].apply(null, obj.slice(1));
+                            return view.translateObjectByXYZ(viewObj, x, y, z);
+                        }
+                    };
+                    return primitives[progRes[0]].apply(null, progRes.slice(1));
+                };
+
+                var applyToView = function(programResults, view) {
+                    // depth-first 
+                    //   generate run primitives in view
+                    processResults(programResults, view);
+                };
+                return {
+                    applyToView: applyToView
+                };
+            });
+        </script>
+        <script>
+            var view = new THREEView(512, 512);
+            document.body.appendChild( view.domElement() );
+            view.draw();
+
+            // Create worker
+            var worker = new Worker("three-worker-test-code.js");
+            
+            // Setup worker output receival
+            worker.onmessage = function(e) {
+                // alert(e.data);
+                console.log(e.data);
+                var time = performance.now();
+                viewApplicator().applyToView(e.data, view);
+                console.log("applying progr result time: "+(performance.now()-time)/1000.0);
+                requestAnimationFrame(function(){view.draw();});
+            };
+
+            // Send program to worker
+            console.log("posting message to worker"+worker);
+            worker.postMessage("var res = []; for(var i=0; i<10000; i++) {res.push(move(sphere(0.5),i,0,0));}; group.apply(null, res);");
+            
+        </script>
+    </body>
+</html>
