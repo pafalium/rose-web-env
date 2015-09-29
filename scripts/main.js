@@ -51,8 +51,8 @@ require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
             if(!evaluationScheduled) {
                 evaluationScheduled = true;
                 setTimeout(function(){
-                    evaluateProgram();
                     evaluationScheduled = false;
+                    evaluateProgram();
                 });
             }
         };
