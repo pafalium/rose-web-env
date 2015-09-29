@@ -18,6 +18,7 @@ require.config({
 });
 
 require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
+    "use strict";
     /*
         Somehow this function should initialize the prototype.
         Maybe it should require:
@@ -37,9 +38,30 @@ require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
     //var scene = new THREE.Scene();
     //scene.add(cube);
     //page.view.setScene(scene);
-    var program = page.editor.getValue();
-    var evaluator = new Evaluator();
-    var scene = evaluator.evaluate(program);
-    page.view.setScene(scene);
+    var evaluateProgram = function evaluateProgram() {
+        var program = page.editor.getValue();
+        var evaluator = new Evaluator();
+        var scene = evaluator.evaluate(program);
+        page.view.setScene(scene);
+    };
+    
+    var setDelayedProgramEval = (function() {
+        var evaluationScheduled = false;
+        return function doDelayedProgramEval() {
+            if(!evaluationScheduled) {
+                evaluationScheduled = true;
+                setTimeout(function(){
+                    evaluateProgram();
+                    evaluationScheduled = false;
+                });
+            }
+        };
+    })();
+
+    page.editor.on("change", function(event){
+        setDelayedProgramEval();
+    });
+
+    setDelayedProgramEval();
 
 });
