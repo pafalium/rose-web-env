@@ -17,7 +17,7 @@ require.config({
     }
 });
 
-require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
+require(["app/page", "app/old-evaluator", "app/eval-manager"], function(page, Evaluator, EvalManager) {
     "use strict";
     /*
         Somehow this function should initialize the prototype.
@@ -38,6 +38,7 @@ require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
     //var scene = new THREE.Scene();
     //scene.add(cube);
     //page.view.setScene(scene);
+    /*
     var evaluateProgram = function evaluateProgram() {
         var program = page.editor.getValue();
         var evaluator = new Evaluator();
@@ -47,7 +48,7 @@ require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
     
     var setDelayedProgramEval = (function() {
         var evaluationScheduled = false;
-        return function doDelayedProgramEval() {
+        return function setDelayedProgramEval() {
             if(!evaluationScheduled) {
                 evaluationScheduled = true;
                 setTimeout(function(){
@@ -63,5 +64,8 @@ require(["app/page", "app/old-evaluator"], function(page, Evaluator) {
     });
 
     setDelayedProgramEval();
+    */
 
+    var evalManager = new EvalManager(page.editor, page.view);
+    document.body.appendChild(evalManager.userInterface.managerControlsBar.domElement);
 });
