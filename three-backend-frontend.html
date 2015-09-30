@@ -3,7 +3,7 @@
     <head>
         <title>THREE-Editor + View Test</title>
         <style>
-            .results-div {
+            #results-div {
                 position: absolute;
                 top: 0;
                 right: 50%;
@@ -15,7 +15,7 @@
                 /*border-style: solid;*/
             }
 
-            .three-canvas-div canvas {
+            #results-div canvas {
                 cursor: crosshair;
             }
 
@@ -29,9 +29,7 @@
         </style>
     </head>
     <body>
-        <div class="results-div" id="results-div">
-            <div class="three-canvas-div" id="canvas-div"></div>
-            <!--<button id="eval-button" type="button">Eval code</button>-->
+        <div id="results-div">
         </div>
 
         <div id="editor-div">
@@ -44,18 +42,6 @@ var s2 = sphere( 2.5 );
 var gr1 = group( b1, s2 );
 move( gr1, 10, 0, 10 );</div>
 
-
-        <!-- Scripting -->
-    <!-- 
-        <script type="text/javascript" src="scripts/lib/three.js"></script>
-        <script type="text/javascript" src="scripts/TREEView.js"></script>
-        <script type="text/javascript" src="scripts/lib/ace-builds/src-noconflict/ace.js" charset="utf-8"></script>
-        <script type="text/javascript" src="scripts/lib/OrbitControls.js"></script>
-    -->
-        <!-- Evaluation -->
-    <!--
-        <script type="text/javascript" src="scripts/main.js"></script>
-    -->
     </body>
 
     <!-- RequireJS entrypoint -->
