@@ -2,40 +2,54 @@
 <html>
     <head>
         <title>THREE-Editor + View Test</title>
+        <style type="text/css">
+            button:not(.enabled) {
+                background-color: red;
+            }
+            button.enabled {
+                background-color: green;
+            }
+            .switch.on {
+                background-color: green;
+            }
+            .switch:not(.on) {
+                background-color: red;
+            }
+            .switch {
+                border: double;
+                display: initial;
+            }
+        </style>
         <style>
             body {
                 overflow: hidden;
+                margin: 0;
             }
-            #results-div {
+            .top-bar {
                 position: absolute;
-                top: 0;
-                right: 50%;
-                bottom: 0;
-                left: 0;
-
-                background-color: gray;
-                /*border-width: medium;*/
-                /*border-style: solid;*/
+                top: 0%;
+                bottom: 90%;
+                width: 100%;
             }
-
-            #results-div canvas {
-                cursor: crosshair;
-            }
-
-            #editor-div {
+            .content {
                 position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 50%;
+                top: 10%;
+                bottom: 0%;
+                width: 100%;
+            }
+            .fill-half-parent {
+                height: 100%;
+                width: 50%;
+                float: left;
             }
         </style>
     </head>
     <body>
-        <div id="results-div">
-        </div>
+        <div class="top-bar" id="manager-div"></div>
+        <div class="content">
+            <div class="fill-half-parent" id="results-div"></div>
 
-        <div id="editor-div">
+            <div class="fill-half-parent" id="editor-div">
 // Write javascript code that does some solids here.
 var c1 = cylinder( 2, 5 );
 var s1 = sphere( 5 );
@@ -44,6 +58,7 @@ var b1 = box( 4, 4, 4 );
 var s2 = sphere( 2.5 );
 var gr1 = group( b1, s2 );
 move( gr1, 10, 0, 10 );</div>
+        </div>
 
     </body>
 
