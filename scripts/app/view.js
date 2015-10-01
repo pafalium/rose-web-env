@@ -98,10 +98,12 @@ define(["THREE", "OrbitControls"], function(THREE, OrbitControls) {
 		this.setScene = setScene;
 	}
 
-	return {
-		on: function(domElement) {
-			return new View(domElement);
-		}
+	return function view() {
+		return {
+			on: function(domElement) {
+				return new View(domElement);
+			}
+		};
 	};
 
 

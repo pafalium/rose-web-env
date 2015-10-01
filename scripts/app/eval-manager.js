@@ -6,6 +6,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 	function EvalManager(editor, view) {
 		var _editor = editor;
 		var _view = view;
+		var _userInterface;/*Is inited in last line*/
 
 		var evaluateProgram = function evaluateProgram() {
 			var program = _editor.getValue();
@@ -98,7 +99,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 			};
 		};
 
-		var _userInterface = setupUserInterface();
+		_userInterface = setupUserInterface();
 		this.userInterface = _userInterface;
 	}
 
@@ -203,5 +204,13 @@ define(["app/old-evaluator"], function(Evaluator) {
 		};
 	}
 
-	return EvalManager;
+	return function evalManager(editor, view) {
+		return {
+			on: function(domElement) {
+				var manager = new EvalManager(editor, view);
+				domElement.appendChild(manager.userInterface.managerControlsBar.domElement);
+				return manager;
+			}
+		};
+	};
 });
