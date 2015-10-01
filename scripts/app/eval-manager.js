@@ -70,7 +70,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 
 			automaticEvaluation = (function() {
 
-				var autoEnabled = true;
+				var autoEnabled = false;
 
 				_editor.on("change", function() {
 					if (autoEnabled) {
@@ -80,6 +80,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 
 				var enable = function() {
 					autoEnabled = true;
+					scheduleEvaluation();
 				};
 
 				var disable = function() {
@@ -103,6 +104,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 		this.userInterface = _userInterface;
 	}
 
+	//TODO Make initial state explicit.
 	function button() {
 
 		var eventListeners = {
@@ -124,7 +126,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 		};
 		var disable = function() {
 			enabled = false;
-			domElement.classList.remove("disabled");
+			domElement.classList.remove("enabled");
 		};
 
 		var onDomClick = function() {
@@ -166,7 +168,7 @@ define(["app/old-evaluator"], function(Evaluator) {
 			});
 		};
 
-		var isOn = true;
+		var isOn = false;
 		var onDomClick = function() {
 			isOn = !isOn;
 			if (isOn) {
